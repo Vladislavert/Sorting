@@ -88,6 +88,92 @@ namespace sort
 			}
 		}
 	}
+//	template<class Iterator, class Compare = std::less<>>
+//	void binaryHeap(Iterator begin, Iterator end, bool history = false, Compare cmp = Compare())
+//	{
+//		double		countStep(0);
+//		Iterator	sorted;
+//		Iterator	j = begin + 1;
+//
+//		for (auto i = begin; i < end - 1; ++i)
+//		{
+//			sorted = i;
+//			while (sorted >= begin && cmp(*(sorted + 1), *sorted))
+//			{
+//				std::iter_swap(sorted, sorted + 1);
+//				--sorted;
+//			}
+//			++j;
+//			if (history == true)
+//			{
+//				std::cout << "Step " << countStep << ": ";
+//				display(begin, end);
+//				std::cout << std::endl;
+//				countStep++;
+//			}
+//		}
+//	}
+//
+//	void heapify()
+//	{
+//
+//	}
+
+	/**
+	 * @brief Selected pivot
+	 * @tparam Iterator
+	 * @tparam Compare
+	 * @param left
+	 * @param right
+	 * @param cmp
+	 */
+	template<class Iterator, class Compare = std::less<>>
+	Iterator part(Iterator left, Iterator right, Compare cmp = Compare())
+	{
+		Iterator pivot = std::prev(right, 1);
+		auto retI = left;
+
+		for (auto j = left; j != pivot; ++j)
+		{
+			if (cmp(*j, *pivot))
+			{
+//				std::iter_swap(j++, retI);
+//				std::iter_swap(retI++, retI);
+				std::swap(*retI++, *j);
+			}
+		}
+//		std::iter_swap(retI, right);
+		std::swap(*retI, *pivot);
+
+		return (retI);
+	}
+
+	template<class Iterator, class Compare = std::less<>>
+	void quickSort(Iterator begin, Iterator end, bool history = false, Compare cmp = Compare())
+	{
+		double		countStep(0);
+		Iterator	pi;
+
+
+		if (begin < end)
+		{
+			pi = part(begin, end, cmp);
+			quickSort(begin, pi, true, cmp);
+			quickSort(pi + 1, end, true, cmp);
+		}
+//		else
+//			return ;
+//		for (auto i = begin; i < end - 1; ++i)
+//		{
+//
+			if (history == true)
+			{
+				std::cout << "Step " << countStep << ": ";
+				display(begin, end);
+				std::cout << std::endl;
+				countStep++;
+			}
+	}
 
 };
 

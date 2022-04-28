@@ -11,7 +11,8 @@ enum class sortType
 	NONE = 0,
 	BUBBLE,
 	INSERT,
-	SELECTION
+	SELECTION,
+	QUICK
 };
 
 enum class orderBy
@@ -119,6 +120,16 @@ class Console
 				orderBy_[sortParams_.orderBy] == orderBy::DESC)
 			{
 				sort::selectionSort(data.begin(), data.end(), true, std::greater<>());
+			}
+			else if (sortTypes_[sortParams_.selectSortType] == sortType::QUICK &&
+				orderBy_[sortParams_.orderBy] == orderBy::ASC)
+			{
+				sort::quickSort(data.begin(), data.end(), true);
+			}
+			else if (sortTypes_[sortParams_.selectSortType] == sortType::QUICK &&
+				orderBy_[sortParams_.orderBy] == orderBy::DESC)
+			{
+				sort::quickSort(data.begin(), data.end(), true, std::greater<>());
 			}
 		}
 };
