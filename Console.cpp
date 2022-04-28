@@ -122,7 +122,6 @@ void Console::printDataType()
 	std::cout << "4 - DATE" << std::endl;
 }
 
-
 void Console::parse()
 {
 	if (dataTypes_[sortParams_.dataType] == dataType::INTEGER)

@@ -6,6 +6,9 @@
 #include <vector>
 #include <algorithm>
 
+#include "BinaryHeap.hpp"
+
+
 namespace sort
 {
 	template<class Iterator>
@@ -88,36 +91,15 @@ namespace sort
 			}
 		}
 	}
-//	template<class Iterator, class Compare = std::less<>>
-//	void binaryHeap(Iterator begin, Iterator end, bool history = false, Compare cmp = Compare())
-//	{
-//		double		countStep(0);
-//		Iterator	sorted;
-//		Iterator	j = begin + 1;
-//
-//		for (auto i = begin; i < end - 1; ++i)
-//		{
-//			sorted = i;
-//			while (sorted >= begin && cmp(*(sorted + 1), *sorted))
-//			{
-//				std::iter_swap(sorted, sorted + 1);
-//				--sorted;
-//			}
-//			++j;
-//			if (history == true)
-//			{
-//				std::cout << "Step " << countStep << ": ";
-//				display(begin, end);
-//				std::cout << std::endl;
-//				countStep++;
-//			}
-//		}
-//	}
-//
-//	void heapify()
-//	{
-//
-//	}
+
+	template<class Iterator, class Compare = std::less<>>
+	void binaryHeap(Iterator begin, Iterator end, bool history = false, Compare cmp = Compare())
+	{
+		BinaryHeap binaryHeap;
+
+		binaryHeap.sort(begin, end, cmp);
+//		binaryHeap.buildHeap(begin, end, cmp);
+	}
 
 	/**
 	 * @brief Selected pivot

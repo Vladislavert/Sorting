@@ -8,4 +8,5 @@ include_directories(.)
 add_executable(Sorting
         main.cpp
         Sorting.hpp
-        Console.cpp)
+        Console.cpp
+        BinaryHeap.cpp)
