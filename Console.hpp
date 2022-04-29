@@ -12,7 +12,8 @@ enum class sortType
 	BUBBLE,
 	INSERT,
 	SELECTION,
-	QUICK
+	QUICK,
+	BINARY_HEAP
 };
 
 enum class orderBy
@@ -130,6 +131,16 @@ class Console
 				orderBy_[sortParams_.orderBy] == orderBy::DESC)
 			{
 				sort::quickSort(data.begin(), data.end(), true, std::greater<>());
+			}
+			else if (sortTypes_[sortParams_.selectSortType] == sortType::BINARY_HEAP &&
+				orderBy_[sortParams_.orderBy] == orderBy::ASC)
+			{
+				sort::binaryHeap(data.begin(), data.end(), true);
+			}
+			else if (sortTypes_[sortParams_.selectSortType] == sortType::BINARY_HEAP &&
+				orderBy_[sortParams_.orderBy] == orderBy::DESC)
+			{
+				sort::binaryHeap(data.begin(), data.end(), true, std::greater<>());
 			}
 		}
 };

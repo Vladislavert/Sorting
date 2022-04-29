@@ -98,7 +98,6 @@ namespace sort
 		BinaryHeap binaryHeap;
 
 		binaryHeap.sort(begin, end, cmp);
-//		binaryHeap.buildHeap(begin, end, cmp);
 	}
 
 	/**

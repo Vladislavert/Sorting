@@ -3,6 +3,7 @@
 
 #include <iterator>
 #include <bits/stdc++.h>
+#include <iostream>
 
 class BinaryHeap {
     public:
@@ -13,19 +14,20 @@ class BinaryHeap {
         void sort(Iterator begin, Iterator end, Compare cmp = Compare())
 		{
 			buildHeap(begin, end, cmp);
-//			for (Iterator i = end; i >= begin; --i)
-			for (int i = std::distance(begin, end) - 1; i >= 0; --i)
+			for (int i = std::distance(begin, end) - 1; i > 0; --i)
 			{
 				std::iter_swap(begin, std::next(begin, i));
-				heapify(begin, end, 0, cmp);
+				heapify(begin, std::next(begin, i), 0, cmp);
 			}
+
+			std::cout << "result sort:" << std::endl;
+			display(begin, end);
         }
 
 		template<class Iterator, class Compare = std::less<>>
 		void buildHeap(Iterator begin, Iterator end, Compare cmp = Compare())
 		{
 			for (int i = std::distance(begin, end) / 2; i >= 0; --i)
-//			for (int i = std::distance(begin, end); i >= -1; --i)
 			{
 				heapify(begin, end, i, cmp);
 			}
@@ -37,8 +39,17 @@ class BinaryHeap {
 
         }
 
+		template<class Iterator>
+		void display(Iterator begin, Iterator end)
+		{
+			for (auto i = begin; i < end; i++)
+			{
+				std::cout << *i << " ";
+			}
+			std::cout << std::endl;
+		}
+
     private:
-        int size_;
 
         /**
          *
@@ -58,11 +69,11 @@ class BinaryHeap {
 				left = std::next(begin, 2 * i + 1);
 				right = std::next(begin, 2 * i + 2);
                 largest = std::next(begin, i);
-                if (left < end && !cmp(*left, *largest))
+                if (left < end && cmp(*largest, *left))
 				{
                     largest = left;
                 }
-                if (right < end && !cmp(*right, *largest))
+                if (right < end && cmp(*largest, *right))
 				{
                     largest = right;
                 }
@@ -71,7 +82,6 @@ class BinaryHeap {
                     break;
                 }
                 std::iter_swap(std::next(begin, i), largest);
-//                i = largest;
 				i = std::distance(begin, largest);
             }
         }

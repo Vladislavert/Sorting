@@ -17,7 +17,8 @@ Console::Console()
 		std::pair<std::string, sortType>("1", sortType::BUBBLE),
 		std::pair<std::string, sortType>("2", sortType::INSERT),
 		std::pair<std::string, sortType>("3", sortType::SELECTION),
-		std::pair<std::string, sortType>("4", sortType::QUICK)
+		std::pair<std::string, sortType>("4", sortType::QUICK),
+		std::pair<std::string, sortType>("5", sortType::BINARY_HEAP)
 	};
 	orderBy_ = {
 		std::pair<std::string, orderBy>("1", orderBy::ASC),
@@ -68,7 +69,8 @@ void Console::printSortType()
 	std::cout << "2 - insertionSort" << std::endl;
 	std::cout << "3 - selectionSort" << std::endl;
 	std::cout << "4 - quickSort" << std::endl;
-	std::cout << "5 - exit" << std::endl;
+	std::cout << "5 - binaryHeap" << std::endl;
+	std::cout << "6 - exit" << std::endl;
 }
 
 bool Console::selectedSortType()
@@ -90,6 +92,10 @@ bool Console::selectedSortType()
 		std::cout << "quick sort:" << std::endl;
 	}
 	else if (sortParams_.selectSortType == "5")
+	{
+		std::cout << "binary heap:" << std::endl;
+	}
+	else if (sortParams_.selectSortType == "6")
 	{
 		return (false);
 	}
