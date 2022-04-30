@@ -24,6 +24,15 @@ class BinaryHeap {
 			display(begin, end);
         }
 
+//		template<class Iterator, class Compare = std::less<>>
+//		void buildHeap(Iterator begin, Iterator end, Compare cmp = Compare())
+//		{
+//			for (int i = std::distance(begin, end) / 2; i >= 0; --i)
+//			{
+//				heapify(begin, end, i, cmp);
+//			}
+//		}
+
 		template<class Iterator, class Compare = std::less<>>
 		void buildHeap(Iterator begin, Iterator end, Compare cmp = Compare())
 		{
@@ -85,7 +94,6 @@ class BinaryHeap {
 				i = std::distance(begin, largest);
             }
         }
-
 };
 
 #endif
