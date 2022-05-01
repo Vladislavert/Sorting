@@ -1,0 +1,13 @@
+name_sort;4096; ;8192; ;16384; ;32768; ;65536; ;131072; ;
+insertionSort;0;
+selectionSort;0;
+quickSort;8;
+binaryHeap;0;
+insertionSort;7;
+selectionSort;6;
+quickSort;80;
+binaryHeap;0;
+insertionSort;14;
+selectionSort;18;
+quickSort;220;
+binaryHeap;0;
