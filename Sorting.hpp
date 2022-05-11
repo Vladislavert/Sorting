@@ -156,6 +156,6 @@ namespace sort
 			}
 	}
 
-};
+}; // namespace sort
 
 #endif // SORTING_HPP_

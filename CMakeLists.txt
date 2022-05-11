@@ -9,4 +9,5 @@ add_executable(Sorting
         main.cpp
         Sorting.hpp
         Console.cpp
-        BinaryHeap.cpp)
+        BinaryHeap.cpp
+        Searching.hpp)
