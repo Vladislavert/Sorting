@@ -10,4 +10,6 @@ add_executable(Sorting
         Sorting.hpp
         Console.cpp
         BinaryHeap.cpp
-        Searching.hpp)
+        Searching.hpp
+        SortManager.hpp
+        SortManager.cpp)

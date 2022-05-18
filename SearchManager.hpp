@@ -3,14 +3,12 @@
 
 #include "Sorting.hpp"
 
-enum class sortType
+enum class searchType
 {
 	NONE = 0,
-	BUBBLE,
-	INSERT,
-	SELECTION,
-	QUICK,
-	BINARY_HEAP
+	LINEAR_SEARCH,
+	BINARY,
+	BINARY_MODIFIED
 };
 
 enum class orderBy
@@ -28,12 +26,12 @@ enum class dataType
 	DATE
 };
 
-struct SortParams
-{
-	std::string selectSortType;
-	std::string orderBy;
-	std::string dataType;
-};
+//struct SortParams
+//{
+//	std::string selectSortType;
+//	std::string orderBy;
+//	std::string dataType;
+//};
 
 struct Date
 {
@@ -62,21 +60,21 @@ struct Date
 
 std::ostream& operator<<(std::ostream& out, const Date& date);
 
-class SortManager
+class SearchManager
 {
 	public:
 
-		SortManager();
-		~SortManager() = default;
+		SearchManager();
+		~SearchManager() = default;
 
 		bool    start();
 
 	private:
-		std::map<std::string, sortType> sortTypes_;
+//		std::map<std::string, sortType> sortTypes_;
 		std::map<std::string, orderBy>  orderBy_;
 		std::map<std::string, dataType> dataTypes_;
 
-		SortParams				    sortParams_;
+//		SortParams				    sortParams_;
 		std::vector<std::string>	dataLine_;
 //		template<class T>
 //		std::vector<T>	data_;
