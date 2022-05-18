@@ -3,6 +3,7 @@
 #include <boost/algorithm/string.hpp>
 
 #include "Sorting.hpp"
+#include "Date.hpp"
 
 std::ostream& operator<<(std::ostream& out, const Date& date)
 {
@@ -107,25 +108,11 @@ bool SortManager::selectedSortType()
 	return (true);
 }
 
-void SortManager::commandNotFound(const std::string& cmd)
-{
-	std::cout << "command " << cmd << ": not found" << std::endl;
-}
-
 void SortManager::printOrderBy()
 {
 	std::cout << "order by" << std::endl;
 	std::cout << "1 - ASC" << std::endl; // ascent(восхождение)
 	std::cout << "2 - DESC" << std::endl; // descent(спуск)
-}
-
-void SortManager::printDataType()
-{
-	std::cout << "data type:" << std::endl;
-	std::cout << "1 - INTEGER" << std::endl;
-	std::cout << "2 - DOUBLE" << std::endl;
-	std::cout << "3 - STRING" << std::endl;
-	std::cout << "4 - DATE" << std::endl;
 }
 
 void SortManager::parse()
@@ -171,22 +158,10 @@ void SortManager::parse()
 		data.reserve(dataLine_.size());
 		for (auto & i : dataLine_)
 		{
-			data.push_back(parseDate(i));
+			data.push_back(Date::parseDate(i));
 		}
 		sortCall<Date>(data);
 	}
 }
 
-Date SortManager::parseDate(const std::string& data)
-{
-	Date retDate;
-
-	std::vector<std::string> date;
-	boost::split(date, data, boost::is_any_of(":"));
-	retDate.day = std::stoi(date[0]);
-	retDate.month = std::stoi(date[1]);
-	retDate.year = std::stoi(date[2]);
-
-	return (retDate);
-}
 

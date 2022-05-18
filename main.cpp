@@ -21,8 +21,45 @@ bool mypredicate (int i, int j) {
 	return (i==j);
 }
 
+void printTypeProgram()
+{
+	std::cout << "enter program type" << std::endl;
+	std::cout << "1 - sort" << std::endl;
+	std::cout << "2 - search" << std::endl;
+	std::cout << "3 - exit" << std::endl;
+}
+
+void typeProgram()
+{
+	Console console;
+	std::string selectProgramType;
+
+	printTypeProgram();
+	getline(std::cin, selectProgramType);
+
+	if (selectProgramType == "1")
+	{
+		while (console.startConsole("sort")) {}
+	}
+	else if (selectProgramType == "2")
+	{
+		while (console.startConsole("search")) {}
+	}
+	else if (selectProgramType == "3")
+	{
+		exit (1);
+	}
+
+}
+
 int main()
 {
+
+	typeProgram();
+
+//	Console console;
+//	while (console.startConsole()) {}
+
 //	Console console;
 //	while (console.startConsole()) {}
 

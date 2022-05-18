@@ -12,7 +12,7 @@ class Console
 		Console() = default;
 		~Console() = default;
 
-        bool startConsole();
+        bool startConsole(const std::string& typeProgram);
 
     private:
 

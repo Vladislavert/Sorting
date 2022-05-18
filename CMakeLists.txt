@@ -12,4 +12,9 @@ add_executable(Sorting
         BinaryHeap.cpp
         Searching.hpp
         SortManager.hpp
-        SortManager.cpp)
+        SortManager.cpp
+        Date.cpp
+        Date.hpp
+        SearchManager.cpp
+        SearchManager.hpp
+        ConsoleManager.cpp)

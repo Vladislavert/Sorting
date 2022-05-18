@@ -2,6 +2,7 @@
 #define SORT_MANAGER_HPP_
 
 #include "Sorting.hpp"
+#include "ConsoleManager.hpp"
 
 enum class sortType
 {
@@ -19,15 +20,6 @@ enum class orderBy
 	DESC
 };
 
-enum class dataType
-{
-	OTHER = 0,
-	INTEGER,
-	DOUBLE,
-	STRING,
-	DATE
-};
-
 struct SortParams
 {
 	std::string selectSortType;
@@ -35,39 +27,12 @@ struct SortParams
 	std::string dataType;
 };
 
-struct Date
-{
-	int day;
-	int month;
-	int year;
-
-	bool operator<(const Date& second) const
-	{
-		if (year < second.year)
-			return true;
-
-		if (year == second.year && month < second.month)
-			return true;
-
-		if (year == second.year && month == second.month && day < second.day)
-			return true;
-
-		return (false);
-	}
-	bool operator>(const Date& second) const
-	{
-		return (second < *this);
-	}
-};
-
-std::ostream& operator<<(std::ostream& out, const Date& date);
-
-class SortManager
+class SortManager : public ConsoleManager
 {
 	public:
 
 		SortManager();
-		~SortManager() = default;
+		~SortManager() override = default;
 
 		bool    start();
 
@@ -82,10 +47,7 @@ class SortManager
 //		std::vector<T>	data_;
 		void printSortType();
 		void printOrderBy();
-		void printDataType();
-		void commandNotFound(const std::string& cmd);
 		bool selectedSortType();
-		Date parseDate(const std::string &data);
 		void parse();
 		template<class T>
 		void sortCall(std::vector<T> data)
