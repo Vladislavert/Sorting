@@ -1,192 +1,33 @@
 #include "Console.hpp"
 
+#include "SortManager.hpp"
 #include <boost/algorithm/string.hpp>
 
 #include "Sorting.hpp"
+#include "SearchManager.hpp"
 
-std::ostream& operator<<(std::ostream& out, const Date& date)
+bool Console::startConsole(const std::string& typeProgram)
 {
-	out << date.day << "." << date.month << "." << date.year;
-	return out;
-}
-
-Console::Console()
-{
-	sortTypes_ = {
-		std::pair<std::string, sortType>("-1", sortType::NONE),
-		std::pair<std::string, sortType>("1", sortType::BUBBLE),
-		std::pair<std::string, sortType>("2", sortType::INSERT),
-		std::pair<std::string, sortType>("3", sortType::SELECTION),
-		std::pair<std::string, sortType>("4", sortType::QUICK),
-		std::pair<std::string, sortType>("5", sortType::BINARY_HEAP)
-	};
-	orderBy_ = {
-		std::pair<std::string, orderBy>("1", orderBy::ASC),
-		std::pair<std::string, orderBy>("2", orderBy::DESC)
-	};
-	dataTypes_ = {
-		std::pair<std::string, dataType>("-1", dataType::OTHER),
-		std::pair<std::string, dataType>("1", dataType::INTEGER),
-		std::pair<std::string, dataType>("2", dataType::DOUBLE),
-		std::pair<std::string, dataType>("3", dataType::STRING),
-		std::pair<std::string, dataType>("4", dataType::DATE),
-	};
-}
-
-bool Console::startConsole()
-{
-    std::string sortTypeString;
-    std::string orderBy;
-	std::string dataType;
-
-
-
-	printSortType();
-    getline(std::cin, sortParams_.selectSortType);
-    std::vector<std::string> v1;
-    std::string str;
-    int length(0);
-	if (selectedSortType() == false)
-		return (false);
-	printOrderBy();
-    getline(std::cin, sortParams_.orderBy);
-	printDataType();
-	getline(std::cin , sortParams_.dataType);
-    std::cout << "enter data:" << std::endl;
-    getline(std::cin, str);
-
-    boost::split(dataLine_, str, boost::is_any_of(" "));
-
-	parse();
-
-	return (true);
-}
-
-void Console::printSortType()
-{
-	std::cout << "enter sort type" << std::endl;
-	std::cout << "1 - bubbleSort" << std::endl;
-	std::cout << "2 - insertionSort" << std::endl;
-	std::cout << "3 - selectionSort" << std::endl;
-	std::cout << "4 - quickSort" << std::endl;
-	std::cout << "5 - binaryHeap" << std::endl;
-	std::cout << "6 - exit" << std::endl;
-}
-
-bool Console::selectedSortType()
-{
-	if (sortParams_.selectSortType == "1")
+	if (typeProgram == "sort")
 	{
-		std::cout << "bubble sort:" << std::endl;
+		SortManager sortManager;
+
+		sortManager.start();
 	}
-	else if (sortParams_.selectSortType == "2")
+	else if (typeProgram == "search")
 	{
-		std::cout << "insertion sort:" << std::endl;
+		SearchManager searchManager;
+
+		searchManager.start();
 	}
-	else if (sortParams_.selectSortType == "3")
+	else if (typeProgram == "exit")
 	{
-		std::cout << "selection sort:" << std::endl;
-	}
-	else if (sortParams_.selectSortType == "4")
-	{
-		std::cout << "quick sort:" << std::endl;
-	}
-	else if (sortParams_.selectSortType == "5")
-	{
-		std::cout << "binary heap:" << std::endl;
-	}
-	else if (sortParams_.selectSortType == "6")
-	{
-		return (false);
+		return false;
 	}
 	else
 	{
-		commandNotFound(sortParams_.selectSortType);
-		printSortType();
+		std::cout << typeProgram << ": not found" << std::endl;
 	}
-	return (true);
+
+	return false;
 }
-
-void Console::commandNotFound(const std::string& cmd)
-{
-	std::cout << "command " << cmd << ": not found" << std::endl;
-}
-
-void Console::printOrderBy()
-{
-	std::cout << "order by" << std::endl;
-	std::cout << "1 - ASC" << std::endl; // ascent(восхождение)
-	std::cout << "2 - DESC" << std::endl; // descent(спуск)
-}
-
-void Console::printDataType()
-{
-	std::cout << "data type:" << std::endl;
-	std::cout << "1 - INTEGER" << std::endl;
-	std::cout << "2 - DOUBLE" << std::endl;
-	std::cout << "3 - STRING" << std::endl;
-	std::cout << "4 - DATE" << std::endl;
-}
-
-void Console::parse()
-{
-	if (dataTypes_[sortParams_.dataType] == dataType::INTEGER)
-	{
-		std::vector<int> data;
-
-		data.reserve(dataLine_.size());
-		for (auto & i : dataLine_)
-		{
-			data.push_back(std::stoi(i));
-		}
-		sortCall<int>(data);
-	}
-	else if (dataTypes_[sortParams_.dataType] == dataType::DOUBLE)
-	{
-
-		std::vector<double> data;
-
-		data.reserve(dataLine_.size());
-		for (auto & i : dataLine_)
-		{
-			data.push_back(std::stod(i));
-		}
-		sortCall<double>(data);
-	}
-	else if (dataTypes_[sortParams_.dataType] == dataType::STRING)
-	{
-		std::vector<std::string> data;
-
-		data.reserve(dataLine_.size());
-		for (auto & i : dataLine_)
-		{
-			data.push_back(i);
-		}
-		sortCall<std::string>(data);
-	}
-	else if (dataTypes_[sortParams_.dataType] == dataType::DATE)
-	{
-		std::vector<Date> data;
-
-		data.reserve(dataLine_.size());
-		for (auto & i : dataLine_)
-		{
-			data.push_back(parseDate(i));
-		}
-		sortCall<Date>(data);
-	}
-}
-
-Date Console::parseDate(const std::string& data)
-{
-	Date retDate;
-
-	std::vector<std::string> date;
-	boost::split(date, data, boost::is_any_of(":"));
-	retDate.day = std::stoi(date[0]);
-	retDate.month = std::stoi(date[1]);
-	retDate.year = std::stoi(date[2]);
-
-	return (retDate);
-}
-
